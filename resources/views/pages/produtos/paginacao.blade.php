@@ -15,13 +15,13 @@
 </form>
 
 <div class="row">
-    <a href="#" class="btn btn-primary">Novo</a>
+    <a href="{{ route('produto.cadastrar') }}" class="btn btn-primary">Novo</a>
 </div>
 
 <h2>Lista de produtos</h2>
       <div class="table-responsive">
         @if($findProduto->isEmpty())
-          <p>Não existe dados</p>
+          <h5 class="text-center">Sem registros</h5>
         @else
         <table class="table table-striped table-sm">
           <thead>
@@ -38,7 +38,11 @@
                 <td class="col-4">{{ 'R$' . ' ' . number_format($produto->valor, 2, ',', '.') }}</td>
                 <td class="col-2">
                   <button type="button" class="btn btn-warning">Editar</button>
-                  <a href="{{ route('produto.delete') }}" class="btn btn-danger">Excluir</a>
+                  <meta name='csrf-token' content=" {{ csrf_token() }}" />
+                  <a onclick="deleteRegistroPaginacao( '{{ route('produto.delete') }} ', {{ $produto->id }}  )"
+                      class="btn btn-danger">
+                      Excluir
+                  </a>
                 </td>
               </tr>
             @endforeach
