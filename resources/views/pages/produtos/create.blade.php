@@ -10,8 +10,8 @@
     @csrf
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Nome</span>
-        <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" placeholder="Nome do produto" 
-        aria-label="Nome do produto" aria-describedby="basic-addon1">
+        <input type="text" class="form-control @error('nome') is-invalid @enderror" value="{{ old('nome') }}"
+        name="nome" placeholder="Nome do produto" aria-label="Nome do produto" aria-describedby="basic-addon1">
         @if ($errors->has('nome'))
             <div class="invalid-feedback">{{ $errors->first('nome') }}</div>
         @endif
@@ -19,8 +19,8 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon2">R$</span>
-        <input class="form-control @error('valor') is-invalid @enderror" id="mascara_valor" name="valor"
-        placeholder="Valor do produto" aria-label="Valor do produto" aria-describedby="basic-addon2">
+        <input class="form-control @error('valor') is-invalid @enderror" value="{{ old('valor') }}"
+        id="mascara_valor" name="valor" placeholder="Valor do produto" aria-label="Valor do produto" aria-describedby="basic-addon2">
         @if ($errors->has('valor'))
             <div class="invalid-feedback">{{ $errors->first('valor') }}</div>
         @endif
