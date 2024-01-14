@@ -10,21 +10,35 @@ use Illuminate\Http\Request;
 
 class ProdutosController extends Controller
 {
+    /**
+     * protected
+     */
     protected $produto;
 
+    /**
+     * construct
+     */
     public function __construct(Produto $produto) 
     {
         $this->produto = $produto;
     }
 
+    /**
+     * nome: index
+     * descrição: função da página principal
+     */
     public function index(Request $request) 
     {
         $pesquisar = $request->input('pesquisar', '');
-        $findProduto = $this->produto->getProdutosPesquisarIndex(search: $pesquisar ?? '');
+        $findProduto = $this->produto->getPesquisar(search: $pesquisar ?? '');
 
         return view('pages.produtos.paginacao', compact('findProduto'));
     }
 
+    /**
+     * nome: cadastrar
+     * descrição: função responsável por página de formulário
+     */
     public function cadastrar(FormRequestProduto $request)
     {
         if($request->method() == "POST") {
@@ -41,6 +55,10 @@ class ProdutosController extends Controller
         return view('pages.produtos.create');
     }
 
+    /**
+     * nome: atualizar
+     * descrição: função responsável pela página de formulário com dados
+     */
     public function atualizar(FormRequestProduto $request, $id) 
     {
         if($request->method() == "PUT") {
@@ -60,6 +78,10 @@ class ProdutosController extends Controller
         return view('pages.produtos.atualizar', compact('editarProduto'));
     }
 
+    /**
+     * nome: delete
+     * descrição: função responsável por deletar registro
+     */
     public function delete(Request $request) 
     {
         $id = $request->id;
