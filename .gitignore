@@ -1,5 +1,8 @@
 # variaveis
 .env
+*env
 *backup
 *tmp
 *bck
+logs
+*.log

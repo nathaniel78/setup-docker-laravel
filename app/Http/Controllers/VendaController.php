@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormRequestVenda;
+use App\Mail\ComprovanteVendaEmail;
 use App\Models\Produto;
 use App\Models\Cliente;
 use App\Models\Venda;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Mail;
 
 class VendaController extends Controller
 {
@@ -99,5 +101,27 @@ class VendaController extends Controller
         Toastr::success('Exclusão realizada com sucesso');
 
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * nome: enviar email
+     * descrição: função responsável por enviar email, comprovante
+     */
+    public function enviarComprovanteEmail($id)
+    {
+        $buscaVenda = Venda::where('id', '=', $id)->first();
+        $nomeCliente = $buscaVenda->cliente->nome;
+        $emailCliente = $buscaVenda->cliente->email;
+        $nomeProduto = $buscaVenda->produto->nome;
+        $sendMailData = [
+            'produtoNome' => $nomeProduto,
+            'clienteNome' => $nomeCliente,
+        ];
+        // dd($sendMailData);
+        
+        Mail::to($emailCliente)->send(new ComprovanteVendaEmail($sendMailData));
+
+        Toastr::success('Comprovante enviado com sucesso');
+        return redirect()->route('venda.index');
     }
 }

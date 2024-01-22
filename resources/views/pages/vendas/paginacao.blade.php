@@ -29,6 +29,7 @@
               <th scope="col">Número do pedido</th>
               <th scope="col">Produto</th>
               <th scope="col">Cliente</th>
+              <th scope="col">E-mail</th>
               <th scope="col">Ações</th>
             </tr>
           </thead>
@@ -36,8 +37,9 @@
             @foreach ($findVenda as $venda)
             <tr>
                 <td class="col-2">{{ $venda->numero_da_venda }}</td>
-                <td class="col-4">{{ $venda->produto->nome }}</td>
+                <td class="col-2">{{ $venda->produto->nome }}</td>
                 <td class="col-3">{{ $venda->cliente->nome }}</td>
+                <td class="col-2">{{ $venda->cliente->email }}</td>
                 <td class="col-3">
                   <a href="{{ route('venda.editar', $venda->id) }}" class="btn btn-warning">Editar</a>
                   <meta name='csrf-token' content=" {{ csrf_token() }}" />
@@ -45,7 +47,7 @@
                       class="btn btn-danger">
                       Excluir
                   </a>
-                  <a href="#" class="btn btn-info">E-mail</a>
+                  <a href="{{ route('venda.comprovante', $venda->id) }}" onclick="confirm('Deseja enviar comprovante de venda ao cliente?')" class="btn btn-info">E-mail</a>
                 </td>
               </tr>
             @endforeach

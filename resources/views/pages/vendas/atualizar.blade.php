@@ -55,6 +55,6 @@
         </div>
 
         <button type="submit" class="btn btn-success w-100 mb-2">Salvar</button>
-        <a href="{{ route('produto.index') }}" class="btn btn-primary w-100 mb-2">Voltar</a>
+        <a href="{{ route('venda.index') }}" class="btn btn-primary w-100 mb-2">Voltar</a>
     </form>
 @endsection
