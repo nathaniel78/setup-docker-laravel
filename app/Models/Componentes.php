@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Componentes extends Model
 {
     use HasFactory;
 
-    public function formatacaoMascaraDinheiroDecimal($valor) {
+    public function formatacaoMascaraDinheiroDecimal($valor)
+    {
         $tamanho = strlen($valor);
         $dados = str_replace(',', '.', $valor);
 
@@ -22,5 +24,10 @@ class Componentes extends Model
         }
 
         return $dados;
+    }
+
+    public function criptoPassword($password)
+    {
+        return Hash::make($password);
     }
 }
